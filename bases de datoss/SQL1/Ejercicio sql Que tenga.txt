@@ -1,0 +1,12 @@
+Ejercicio sql
+Que tenga
+
+Identificador auto incremental
+Nombre(Varchar 255)
+descripcion (text)
+precio(decimal(5,2))
+
+Y crear restricciones
+El stock no puede ser negativo
+El precio no puede ser negativo
+Y el precio no puede superar los 5000€N

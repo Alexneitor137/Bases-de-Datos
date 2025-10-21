@@ -1,0 +1,33 @@
+CREATE TABLE "clientes" (
+	"identificador"	INTEGER,
+	"nombre"	TEXT,
+	"apellidos"	TEXT,
+	"email"	TEXT,
+	PRIMARY KEY("identificador" AUTOINCREMENT)
+);
+
+CREATE TABLE "productos" (
+	"identificador"	INTEGER,
+	"nombre"	TEXT,
+	"descripcion"	TEXT,
+	"precio"	TEXT,
+	PRIMARY KEY("identificador" AUTOINCREMENT)
+);
+
+INSERT INTO clientes VALUES(
+	Null,
+	'Alejandro',
+	'Calderón Sánchez',
+	'Alejandro@gmail.com'
+);
+-- read
+SELECT * FROM clientes
+-- update
+UPDATE clientes
+SET email = 'Alex@gmail.com'
+WHERE identificador = 1;
+-- delete
+DELETE FROM clientes
+WHERE identificador = 1;
+  	
+ 

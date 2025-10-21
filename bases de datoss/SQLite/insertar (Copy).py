@@ -1,0 +1,20 @@
+#Importamos la libreria
+import sqlite3
+
+#Nos conectamos a la base de datos
+conexion = sqlite3.connect("empresa.db")
+
+#Creamos un cursor
+cursor = conexion.cursor()
+
+#Ejecutamos una sentencia
+cursor.execute('''
+    SELECT * FROM clientes;
+''')
+filas = cursor.flechall()
+
+for fila in filas:
+    print(fila)
+
+#Lanzamos la peticion
+conexion.commit()
