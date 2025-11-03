@@ -1,0 +1,25 @@
+#Inicio sesion
+sudo mysql -u root -p
+
+#Creamos la base de datos
+CREATE DATABASE blog2;
+
+#Nos aseguramos de que se ha creado
+SHOW DATABASES;
+
+#Entramos a la base de datos
+USE blog2;
+
+#Creamos la tala autores
+CREATE TABLE autores(
+	identificador INT(10),
+	nombre VARCHAR(255),
+	apellidos VARCHAR(100),
+	email VARCHAR(100)
+);
+
+#Miramos que se ha creado bien
+SHOW TABLES;
+
+#Creamos una clave primaria
+
