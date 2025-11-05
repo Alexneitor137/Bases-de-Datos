@@ -1,5 +1,8 @@
 Comandos MySQL
+sudo mysql -u root -p
+--Ver Bases de datos disponibles
 SHOW DATABASES;
+--Crear base de datos
 CREATE DATABASE empresadam;
 Query OK, 1 row affected (0.02 sec)
 USE empresadam;
@@ -9,6 +12,7 @@ VARCHAR = Cadena de texto
 TEXT = Texto largo
 DATE = 	Fecha
 -----------------------------------------------------
+--Ver tablas
 SHOW TABLES;
 Empty set (0,00 sec)
 CREATE TABLE clientes (
@@ -18,7 +22,7 @@ CREATE TABLE clientes (
   email VARCHAR(100)
 );
 ------------------------------------------------------
--- Create 
+-- Meter daros a una tabla
 INSERT INTO clientes VALUES(
   '12345678A',
   'Alejandro',
