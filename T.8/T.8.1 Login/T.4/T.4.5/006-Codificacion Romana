@@ -1,0 +1,10 @@
+<?php
+	function codificaRomana($cadena){
+  	for($i = 0;$i<strlen($cadena);$i++){
+    	$cadena[$i] = chr(ord($cadena[$i])+10);
+    }
+    return $cadena;
+  }
+  
+  echo codificaRomana("Hola");
+?>
