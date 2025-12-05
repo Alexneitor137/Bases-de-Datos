@@ -1,5 +1,5 @@
 <?php
-
+	session_start(); // Arranco una sesion
   $host = "localhost";
   $user = "superaplicacion";
   $pass = "Superaplicacion123$";
@@ -21,6 +21,7 @@
   $resultado = $conexion->query($sql);
 
   if ($fila = $resultado->fetch_assoc()) {	// Si es cierto que hay un resultado
+    $_SESSION['usuario'] = 'si';
     header("Location: exito.php");					// En ese caso vamos a la pagina de exito
   }else{																		// Si no hay ningun resultado
   	header("Location: login.html");					// En ese caso volvemos al login
@@ -28,4 +29,3 @@
 
   $conexion->close();
   
-?>
