@@ -20,3 +20,8 @@ db.facturas.updateMany(
 db.facturas.deleteOne(
     {nombre:'Alejandro'}
 )
+
+// Eliminar muchos
+db.facturas.deleteMany(
+    {email:'info@juan.com'}
+)
