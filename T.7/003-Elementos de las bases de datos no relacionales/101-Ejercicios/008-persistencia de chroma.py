@@ -2,13 +2,14 @@
 import json
 import urllib.request
 import chromadb
+from chromadb.config import Settings
 
 # -------- OLLAMA CONFIG --------
 OLLAMA_URL = "http://localhost:11434/api/embeddings"
 MODEL = "nomic-embed-text:v1.5"
 TEXT = "fresa"
 
-# -------- GET EMBEDDING --------
+# -------- GET EMBEDDING FROM OLLAMA --------
 payload = {
     "model": MODEL,
     "prompt": TEXT
@@ -24,10 +25,14 @@ req = urllib.request.Request(
 with urllib.request.urlopen(req) as resp:
     data = json.loads(resp.read().decode("utf-8"))
 
-fresa = data["embedding"]   # <-- AQUÍ se define fresa
+fresa = data["embedding"]
 
-# -------- CHROMADB --------
-client = chromadb.Client()
+# -------- CHROMADB (PERSISTENT) --------
+client = chromadb.Client(
+    Settings(
+        persist_directory="./chroma_db"
+    )
+)
 
 collection = client.get_or_create_collection(
     name="frutas"
@@ -39,4 +44,4 @@ collection.add(
     documents=["fresa"]
 )
 
-print("Embedding de 'fresa' almacenado correctamente en ChromaDB")
+print("OK: embedding de 'fresa' guardado en ./chroma_db")
