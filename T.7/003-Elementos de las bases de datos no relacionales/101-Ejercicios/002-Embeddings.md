@@ -1,16 +1,27 @@
-from nomic import embed
+#!/usr/bin/env python3
+import json
+import urllib.request
 
-# Text to embed
-text = "fresa"
+OLLAMA_URL = "http://localhost:11434/api/embeddings"
+MODEL = "nomic-embed-text:v1.5"
+TEXT = "fresa"
 
-# Generate embedding
-result = embed.text(
-    texts=[text],
-    model="nomic-embed-text:v1.5"
+payload = {
+    "model": MODEL,
+    "prompt": TEXT
+}
+
+req = urllib.request.Request(
+    OLLAMA_URL,
+    data=json.dumps(payload).encode("utf-8"),
+    headers={"Content-Type": "application/json"},
+    method="POST",
 )
 
-# Extract the vector
-embedding = result["embeddings"][0]
+with urllib.request.urlopen(req) as resp:
+    data = json.loads(resp.read().decode("utf-8"))
+
+embedding = data["embedding"]
 
 print("Embedding length:", len(embedding))
 print("First 10 values:", embedding)
