@@ -1,8 +1,16 @@
 #!/usr/bin/env python3
+import os
 import json
 import urllib.request
 import chromadb
-from chromadb.config import Settings
+
+# -------- Where will ChromaDB live (ABSOLUTE PATH) --------
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_DIR = os.path.join(BASE_DIR, "chroma_db")
+os.makedirs(DB_DIR, exist_ok=True)
+
+print("Script folder:", BASE_DIR)
+print("ChromaDB folder:", DB_DIR)
 
 # -------- OLLAMA CONFIG --------
 OLLAMA_URL = "http://localhost:11434/api/embeddings"
@@ -10,10 +18,7 @@ MODEL = "nomic-embed-text:v1.5"
 TEXT = "fresa"
 
 # -------- GET EMBEDDING FROM OLLAMA --------
-payload = {
-    "model": MODEL,
-    "prompt": TEXT
-}
+payload = {"model": MODEL, "prompt": TEXT}
 
 req = urllib.request.Request(
     OLLAMA_URL,
@@ -28,20 +33,15 @@ with urllib.request.urlopen(req) as resp:
 fresa = data["embedding"]
 
 # -------- CHROMADB (PERSISTENT) --------
-client = chromadb.Client(
-    Settings(
-        persist_directory="./chroma_db"
-    )
-)
+client = chromadb.PersistentClient(path=DB_DIR)
 
-collection = client.get_or_create_collection(
-    name="frutas"
-)
+collection = client.get_or_create_collection(name="frutas")
 
 collection.add(
     ids=["fresa"],
     embeddings=[fresa],
-    documents=["fresa"]
+    documents=["fresa"],
 )
 
-print("OK: embedding de 'fresa' guardado en ./chroma_db")
+print("OK: stored. Files should be under:", DB_DIR)
+print("Collection count:", collection.count())
